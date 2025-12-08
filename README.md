@@ -163,4 +163,8 @@ pkg, yao-pkg, nexe - package Node.js project into an executable...
 
 **All that is "go build" in Go, more or less.**
 
-Go is about a single module system, build system, runtime, paradigm, compiles to a binary which can pack assets and even be 32 bits. Go is also usable on vim which is more snappy than VS Code, but the latter has more reliable visual debugger.
+Go is about a single build system, module system, runtime, paradigm.
+
+It compiles to binary which can pack assets and even be of 32 bits.
+
+Go is also snappy with vim, but there is no VS Code debugger there.
