@@ -108,20 +108,38 @@ Notice that `httpOnly: true` works both locally and globally. It blocks any clie
 
 # Update 2025 12 08. Status: Abandoned
 
-Why? I prefer the Go stdlib router and sqlc (with AI) now. See my [schatzhauser](https://github.com/aabbtree77/schatzhauser) project. Go is also a bit more low level in a good sense, e.g. it can do graceful shutdowns and mutexes to protect maps from concurrent hits.
+Why? I prefer the Go stdlib router and sqlc (with AI) now, see [schatzhauser](https://github.com/aabbtree77/schatzhauser) project.
 
-The major problem with Js/Ts is the fatigue. It is real, and it is galactic. At least three major runtimes, two module systems, three different ways to do async (ES5 callbacks, ES6 promises, ES8 async/await), Js vs Ts, [Ts type katas](https://www.reddit.com/r/typescript/comments/17vqe05/library_with_the_most_complex_typings/), only god knows how many "build tools" out there and what each does:
+Go is also a bit more low level in a good way. It puts upfront graceful shutdowns and mutexes to protect maps from concurrent hits.
+
+The major problem with Js/Ts is the fluff around the actual code:
+
+js, ts, [d.ts](https://www.reddit.com/r/typescript/comments/17vqe05/library_with_the_most_complex_typings/), jsx, tsx, mjs, mts, cjs, cts, map, [tsconfig.json](https://kettanaito.com/blog/one-thing-nobody-explained-to-you-about-typescript) - file formats
+
+My [single page cv (React)](https://github.com/aabbtree77/cv) had the following configuration files: .eslintrc.cjs, package-lock.json, package.json, postcss.config.js, tailwind.config.mjs, tsconfig.json, tsconfig.node.json, vite.config.ts, vite-env.d.ts
+
+ES5 callbacks, ES6 promises, ES8 async/await - the async story
+
+ES5 function objects with .this, ES6 classes, Ts classes - OO
+
+cjs, esm, amd, umd, cdn - modules definitions, construction, instantiation, evaluation, fetching
+
+\@ used for (i) scoped (grouped) npm packages, or (ii) as a convention for path aliases inside config files, but some also use \# for the latter
+
+[function\*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) and next()
 
 nvm, fnm, nvs, volta, asdf - Node.js version managers
 
 npm, yarn, bower, pnpm — Js/Ts package managers
 
-browserify, requirejs, systemjs, jspm, ncc - module loaders/managers
+npx, yarn dlx, bunx - package executors
+
+browserify, requirejs, lsjs, systemjs, jspm, ncc - module loaders/managers
 
 tsx, ts-node - Ts execution engines and REPLs for Node.js
 
-esbuild, tsup, rollup, parcel, webpack, turbopack, rspack, 
-yeoman, dynohot, cra, vite, vite ssr - project generators, bundlers, hot module reloaders
+esbuild, tsup, rollup, parcel, webpack, turbopack, rspack,
+yeoman, dynohot, cra, vite, vite ssr - project generators, task runners, bundlers, tree shakers, minifiers, hot module reloaders
 
 jslint, eslint, prettier, REST Client - VS Code extensions
 
@@ -143,6 +161,8 @@ pkg, yao-pkg, nexe - package Node.js project into an executable
 
 ...
 
-All that is "go build" in Go, more or less. Single module system, build system, runtime, paradigm, compiles to a binary which can pack assets and even be 32 bits. Go is also usable on vim which is more snappy than VS Code, but the latter has more reliable debugging.
+All that is "go build" in Go, more or less.
 
-Node.js (Next.js?) apps [seem to leak memory](https://www.youtube.com/watch?v=gNDBwxeBrF4&t=176s). This is not a big deal per se as the accumulation is slow in time and a typical Js/Ts app crashes and gets restarted before RAM becomes a problem.
+A single module system, build system, runtime, paradigm, compiles to a binary which can pack assets and even be 32 bits. Go is also usable on vim which is more snappy than VS Code, but the latter has more reliable debugging.
+
+Node.js (Next.js?) apps [leak memory](https://www.youtube.com/watch?v=gNDBwxeBrF4&t=176s).
