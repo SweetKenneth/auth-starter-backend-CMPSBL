@@ -106,7 +106,7 @@ Notice that `httpOnly: true` works both locally and globally. It blocks any clie
 
 [You should learn Drizzle, the TypeScript SQL ORM. Syntax podcast #721, 2024](https://syntax.fm/show/721/you-should-learn-drizzle-the-typescript-sql-orm)
 
-# Some Food for Thought
+# Update 2025: Some Food for Thought
 
 Bun/Deno aim to solve quite a few problems. To appreciate the scale of that, consider what Js roughly is even without web frameworks, frontend libs and ORMs:
 
