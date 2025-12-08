@@ -1,12 +1,12 @@
-> "Sad thoughts come to me when I look in a bookcase full of biochemistry books. I realize that the bookcase will last much longer than the contents of the books in it." 
+> "Sad thoughts come to me when I look in a bookcase full of biochemistry books. I realize that the bookcase will last much longer than the contents of the books in it."
 >
-> — *Bolesław Skarżyński (1901-1963)*
+> — _Bolesław Skarżyński (1901-1963)_
 
 # Introduction
 
 This is the backend part of a session-based user name and password authentication with a [frontend](https://github.com/aabbtree77/auth-starter-frontend).
 
-The stack is Bun, SQLite via Drizzle, Hono, TypeScript. 
+The stack is Bun, SQLite via Drizzle, Hono, TypeScript.
 
 Open three terminal windows:
 
@@ -31,17 +31,17 @@ cd into the cloned frontend part and run TypeScript as documented in [README.md]
 
 # Debugging
 
-Delete the tables with the browser GUI in Drizzle Studio. Use `bun run db:generate` if you adjust the tables/schema. `bun run db:push` creates and updates the actual database file in `/storage`. If some weird problems appear, delete the `*.db` file inside that folder. This is how I handle "migrations" ;). 
+Delete the tables with the browser GUI in Drizzle Studio. Use `bun run db:generate` if you adjust the tables/schema. `bun run db:push` creates and updates the actual database file in `/storage`. If some weird problems appear, delete the `*.db` file inside that folder. This is how I handle "migrations" ;).
 
 I use `bun:sqlite` instead of `better-sqlite3`, but the latter is still needed by drizzle-kit, so better-sqlite3 is in `package.json`, but not in the code. See [this issue](https://github.com/drizzle-team/drizzle-orm/issues/1520).
 
-If you plan on changing the database, pay attention at the time zones and TypeScript's Date.Now(). `src/utils/sessionhelper.ts` appends `Z` to enforce the UTC when extracting the session expiry from the session table. Without such care, storing and reading may not result in the same value, and with the use of Date.Now() one can easily get some weird bugs where everything works only for longer session expiration times. 
+If you plan on changing the database, pay attention at the time zones and TypeScript's Date.Now(). `src/utils/sessionhelper.ts` appends `Z` to enforce the UTC when extracting the session expiry from the session table. Without such care, storing and reading may not result in the same value, and with the use of Date.Now() one can easily get some weird bugs where everything works only for longer session expiration times.
 
 In my case, I am 3 hours ahead of the UTC, and could not see any problems when setting a session expiry to 5 hours, at first. It turned out that the program had a bug as it would subtract 3 hours from `session.expiresAt` due to UTC not enforced, killing a session instantly for the TTL values smaller or equal to 3 hours.
 
 # Security
 
-This is a bare-bones minimal authentication, use it at your own risk. 
+This is a bare-bones minimal authentication, use it at your own risk.
 
 Notice that there is no `.env` inside `.gitignore`. You may need to change that.
 
@@ -52,9 +52,9 @@ It involves using Hono CORS middleware with the frontend URL and `credentials: t
 ```ts
 app.use(
   cors({
-    origin: 'http://localhost:5173',
-    allowHeaders: ['Content-Type'],
-    allowMethods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
+    origin: "http://localhost:5173",
+    allowHeaders: ["Content-Type"],
+    allowMethods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
     credentials: true,
   })
 );
@@ -80,7 +80,7 @@ setCookie(c, 'sessionId', sessionId, {
   });
 ```
 
-Locally, `sameSite: Lax` while `secure: true` needs to be removed due to HTTP, as in this code. 
+Locally, `sameSite: Lax` while `secure: true` needs to be removed due to HTTP, as in this code.
 
 It is possible to test HTTPS locally and retain `secure: true`, but one needs to install `ngrok` and forward `localhost:3000` via
 
@@ -105,3 +105,57 @@ Notice that `httpOnly: true` works both locally and globally. It blocks any clie
 [Complex Schema Design with Drizzle ORM. youtube, 2024](https://www.youtube.com/watch?v=vLze97zZKsU&t=2305s)
 
 [You should learn Drizzle, the TypeScript SQL ORM. Syntax podcast #721, 2024](https://syntax.fm/show/721/you-should-learn-drizzle-the-typescript-sql-orm)
+
+# Update 2025 12 08. Status: Abandoned
+
+Why? I prefer the Go stdlib router and sqlc (with AI) now. See my [schatzhauser](https://github.com/aabbtree77/schatzhauser) project. Go is also a bit more low level in a good sense, e.g. it can do graceful shutdowns and mutexes to protect maps from concurrent hits.
+
+The major problem with Js/Ts is the fatigue. It is real, and it is galactic. At least three major runtimes, two module systems, three different ways to do async (ES5 callbacks, ES6 promises, ES8 async/await), Js vs Ts, [Ts type katas](https://www.reddit.com/r/typescript/comments/17vqe05/library_with_the_most_complex_typings/), only god knows how many build tools out there and what each does:
+
+npm / yarn / pnpm — install deps (baseline “build step”)
+
+prisma generate — generate DB client
+
+tsc — TypeScript → JavaScript
+
+esbuild — fast bundler, optional single-file output
+
+tsup — opinionated wrapper over esbuild
+
+rollup — bundling, optimization
+
+webpack — heavy bundler (less popular on server now)
+
+turbopack - a new Rust-based webpack
+
+babel — transpile JS syntax
+
+swc — very fast TS/JS transpiler
+
+nx — monorepo build orchestration
+
+turborepo — incremental builds / caching
+
+vite, vite (SSR build) — server bundle (less common)
+
+pkg — package Node app into executable
+
+ncc — bundle Node app into one JS file
+
+docker build — freeze runtime + app
+
+pm2 — process manager (often mistaken as build step)
+
+bun build — Node alternative with real build step
+
+deno build, deno compile...
+
+gulp - task runner (copy files, run scripts, not really a bundler)
+
+nexe, yao-pkg - package Node.js project into an executable
+
+...
+
+All that is just "go build" in Go. Single module system, build system, runtime, paradigm, compiles to a real binary which can wrap more than just Go (as PocketBase does), it can even be 32 bits. Go is great on vim if you want it super snappy without fluff, but debugging is best in VS Code.
+
+Node.js (Next.js?) apps [seem to leak memory](https://www.youtube.com/watch?v=gNDBwxeBrF4&t=176s). This is not a big deal per se as the accumulation is slow in time and a typical Js/Ts app crashes and gets restarted before RAM becomes a problem.
