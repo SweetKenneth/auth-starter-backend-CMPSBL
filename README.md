@@ -106,65 +106,61 @@ Notice that `httpOnly: true` works both locally and globally. It blocks any clie
 
 [You should learn Drizzle, the TypeScript SQL ORM. Syntax podcast #721, 2024](https://syntax.fm/show/721/you-should-learn-drizzle-the-typescript-sql-orm)
 
-# Update 2025 12 08. Status: Abandoned
+# Some Food for Thought
 
-Why? I prefer the Go stdlib router and sqlc (with AI) now, see [schatzhauser](https://github.com/aabbtree77/schatzhauser).
-
-Go is lower level in a good way. It puts upfront graceful shutdowns and mutexes to protect maps from concurrent hits.
-
-Node.js (Next.js?) apps [leak memory.](https://www.youtube.com/watch?v=gNDBwxeBrF4&t=176s)
-
-The major problem with Js/Ts is the fluff around the actual code:
+Bun/Deno aim to solve quite a few problems. To appreciate the scale of that, consider what Js roughly is even without web frameworks, frontend libs and ORMs:
 
 js, ts, [d.ts](https://www.reddit.com/r/typescript/comments/17vqe05/library_with_the_most_complex_typings/), jsx, tsx, mjs, mts, cjs, cts, map, [tsconfig.json](https://kettanaito.com/blog/one-thing-nobody-explained-to-you-about-typescript),
 
 [a tiny vite+react page](https://github.com/aabbtree77/cv): .eslintrc.cjs, package-lock.json, package.json, postcss.config.js, tailwind.config.mjs, tsconfig.json, tsconfig.node.json, vite.config.ts, vite-env.d.ts,
 
-ES5 callbacks, ES6 Promise, then, catch, finally, ES8 async/await,
-
-[ES6 \*generator, function\*, next, throw, return, yield, yield\*,](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
-
-ES5 var, function objects, this, call, bind, ES6 const, let, classes, Ts classes,
-
-cjs, esm, amd, umd, cdn - modules definitions, construction, instantiation, evaluation, fetching,
+cjs, esm, amd, umd, cdn - module definitions, construction, instantiation, evaluation, fetching,
 
 \@ used for (i) scoped (grouped) npm packages, or (ii) as a convention for path aliases inside config files, but some also use \# for the latter,
 
-nvm, fnm, nvs, volta, asdf - Node.js version managers,
+node, bun, deno, cloudflare workers, service workers, hermes, aws lambda, browsers - runtimes,
+
+nvm, fnm, nvs, volta, asdf - node version managers,
 
 npm, yarn, bower, pnpm — Js/Ts package managers,
 
-npx, yarn dlx, bunx - package executors,
+npx, yarn dlx, bunx - "package executors",
 
-browserify, requirejs, lsjs, systemjs, jspm, ncc - module loaders or managers,
+browserify, requirejs, lsjs, systemjs, jspm, ncc - module loaders?
 
-tsx, ts-node - Ts execution engines and REPLs for Node.js,
+tsx, ts-node - Ts "execution engines" and REPLs for node,
 
-esbuild, tsup, rollup, parcel, webpack, turbopack, rspack,
-yeoman, dynohot, cra, vite, vite ssr - project generators, task runners, bundlers, tree shakers, minifiers, hot module reloaders,
+grunt, gulp, esbuild, tsup, rollup, parcel, webpack, turbopack, rspack,
+yeoman, dynohot, cra, create-t3-app, vite, vite ssr, create-next-app..., create-remix, npm create astro, bun create... - project generators, task runners, bundlers, tree shakers,
+minifiers, hot module reloaders, source map generators,
 
-jslint, eslint, prettier, REST Client - VS Code extensions,
+jslint, eslint, prettier, REST Client - VS Code extensions to turn your text editor into a Christmas tree,
 
-tsc, swc, tsgo — Ts to Js compilers,
+tsc, tsgo, swc — Ts to Js compilers, but they do not compile to binary,
 
 v8, spidermonkey - Js compilers to binary, also called "engines",
 
+libuv - C++ event loop and asynchronous I/O library reused by node for async operations with fs and networking,
+
+"partytown is a lazy-loaded library to help relocate resource-intensive scripts into a web worker",
+
 [jispy](https://github.com/polydojo/jispy/issues/1), mocha (ES1, Brendan Eich), javascriptcore, graaljs, rhino, escargot (Samsung TVs), scriptease (ES3, James Webb Space Telescope) - Js bytecode interpreters,
+
+after Douglas Crockford's cleanup, ES6 Promise, then, catch, finally, [\*generator, function\*, next, throw, return, yield, yield\*,](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*),
+ES6 classes, Ts classes arrive. Who ordered these? So even more tools:
 
 narcissus, babel — ES6+ compilers/transpilers to older standards,
 
-nx node, turborepo — monorepo management, incremental builds, caching,
+Ts is a superset of Js,
 
-node, bun, deno, cloudflare workers, service workers, hermes, aws lambda, browsers - runtimes,
+angelscript, jsx, svelte, astro - additional Js/Ts subsets and supersets,
 
-grunt, gulp - (obsolete) task runners (copy files, run scripts),
+JSDoc, [Closure Compiler](https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler) - static type annotations inside comments,
 
-pkg, yao-pkg, nexe - package Node.js project into an executable...
+[Proposal T39](https://tc39.es/proposal-type-annotations/), [Flow](https://flow.org/en/docs/types/) typed Js supersets, similar to Ts,
 
-**All that is "go build" in Go, more or less.**
+nx node, turborepo — "monorepo management", incremental builds, caching,
 
-Go is about a single build system, module system, runtime, paradigm.
+pkg, yao-pkg, nexe - package Node.js project into an executable,
 
-It compiles to binary which can pack assets and even be of 32 bits.
-
-Go is also snappy with vim, but there is no VS Code debugger there.
+[npm malware attacks](https://www.bleepingcomputer.com/news/security/shai-hulud-20-npm-malware-attack-exposed-up-to-400-000-dev-secrets/), [memory leaks...](https://www.youtube.com/watch?v=gNDBwxeBrF4&t=176s)
