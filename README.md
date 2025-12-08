@@ -108,61 +108,59 @@ Notice that `httpOnly: true` works both locally and globally. It blocks any clie
 
 # Update 2025 12 08. Status: Abandoned
 
-Why? I prefer the Go stdlib router and sqlc (with AI) now, see [schatzhauser](https://github.com/aabbtree77/schatzhauser) project.
+Why? I prefer the Go stdlib router and sqlc (with AI) now, see [schatzhauser](https://github.com/aabbtree77/schatzhauser).
 
-Go is also a bit more low level in a good way. It puts upfront graceful shutdowns and mutexes to protect maps from concurrent hits.
+Go is lower level in a good way. It puts upfront graceful shutdowns and mutexes to protect maps from concurrent hits.
+
+Node.js (Next.js?) apps [leak memory.](https://www.youtube.com/watch?v=gNDBwxeBrF4&t=176s)
 
 The major problem with Js/Ts is the fluff around the actual code:
 
-js, ts, [d.ts](https://www.reddit.com/r/typescript/comments/17vqe05/library_with_the_most_complex_typings/), jsx, tsx, mjs, mts, cjs, cts, map, [tsconfig.json](https://kettanaito.com/blog/one-thing-nobody-explained-to-you-about-typescript) - file formats
+js, ts, [d.ts](https://www.reddit.com/r/typescript/comments/17vqe05/library_with_the_most_complex_typings/), jsx, tsx, mjs, mts, cjs, cts, map, [tsconfig.json](https://kettanaito.com/blog/one-thing-nobody-explained-to-you-about-typescript),
 
-My [single page cv (React)](https://github.com/aabbtree77/cv) had the following configuration files: .eslintrc.cjs, package-lock.json, package.json, postcss.config.js, tailwind.config.mjs, tsconfig.json, tsconfig.node.json, vite.config.ts, vite-env.d.ts
+[a tiny vite+react page](https://github.com/aabbtree77/cv): .eslintrc.cjs, package-lock.json, package.json, postcss.config.js, tailwind.config.mjs, tsconfig.json, tsconfig.node.json, vite.config.ts, vite-env.d.ts,
 
-ES5 callbacks, ES6 promises, ES8 async/await - the async story
+ES5 callbacks, ES6 Promise, then, catch, finally, ES8 async/await,
 
-ES5 function objects with .this, ES6 classes, Ts classes - OO
+[ES6 \*generator, function\*, next, throw, return, yield, yield\*,](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
 
-cjs, esm, amd, umd, cdn - modules definitions, construction, instantiation, evaluation, fetching
+ES5 var, function objects, this, call, bind, ES6 const, let, classes, Ts classes,
 
-\@ used for (i) scoped (grouped) npm packages, or (ii) as a convention for path aliases inside config files, but some also use \# for the latter
+cjs, esm, amd, umd, cdn - modules definitions, construction, instantiation, evaluation, fetching,
 
-[function\*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) and next()
+\@ used for (i) scoped (grouped) npm packages, or (ii) as a convention for path aliases inside config files, but some also use \# for the latter,
 
-nvm, fnm, nvs, volta, asdf - Node.js version managers
+nvm, fnm, nvs, volta, asdf - Node.js version managers,
 
-npm, yarn, bower, pnpm — Js/Ts package managers
+npm, yarn, bower, pnpm — Js/Ts package managers,
 
-npx, yarn dlx, bunx - package executors
+npx, yarn dlx, bunx - package executors,
 
-browserify, requirejs, lsjs, systemjs, jspm, ncc - module loaders/managers
+browserify, requirejs, lsjs, systemjs, jspm, ncc - module loaders or managers,
 
-tsx, ts-node - Ts execution engines and REPLs for Node.js
+tsx, ts-node - Ts execution engines and REPLs for Node.js,
 
 esbuild, tsup, rollup, parcel, webpack, turbopack, rspack,
-yeoman, dynohot, cra, vite, vite ssr - project generators, task runners, bundlers, tree shakers, minifiers, hot module reloaders
+yeoman, dynohot, cra, vite, vite ssr - project generators, task runners, bundlers, tree shakers, minifiers, hot module reloaders,
 
-jslint, eslint, prettier, REST Client - VS Code extensions
+jslint, eslint, prettier, REST Client - VS Code extensions,
 
-tsc, swc, tsgo — Ts to Js compilers
+tsc, swc, tsgo — Ts to Js compilers,
 
-v8, spidermonkey - Js compilers to binary, also called "engines"
+v8, spidermonkey - Js compilers to binary, also called "engines",
 
-[jispy](https://github.com/polydojo/jispy/issues/1), mocha (ES1, Brendan Eich), javascriptcore, graaljs, rhino, escargot (Samsung TVs), scriptease (ES3, James Webb Space Telescope) - Js bytecode interpreters
+[jispy](https://github.com/polydojo/jispy/issues/1), mocha (ES1, Brendan Eich), javascriptcore, graaljs, rhino, escargot (Samsung TVs), scriptease (ES3, James Webb Space Telescope) - Js bytecode interpreters,
 
-narcissus, babel — ES6+ compilers/transpilers to older standards
+narcissus, babel — ES6+ compilers/transpilers to older standards,
 
-nx node, turborepo — monorepo management, incremental builds, caching
+nx node, turborepo — monorepo management, incremental builds, caching,
 
-node, bun, deno, cloudflare workers, service workers, hermes, aws lambda, browsers - runtimes
+node, bun, deno, cloudflare workers, service workers, hermes, aws lambda, browsers - runtimes,
 
-grunt, gulp - (obsolete) task runners (copy files, run scripts)
+grunt, gulp - (obsolete) task runners (copy files, run scripts),
 
-pkg, yao-pkg, nexe - package Node.js project into an executable
+pkg, yao-pkg, nexe - package Node.js project into an executable...
 
-...
+**All that is "go build" in Go, more or less.**
 
-All that is "go build" in Go, more or less.
-
-A single module system, build system, runtime, paradigm, compiles to a binary which can pack assets and even be 32 bits. Go is also usable on vim which is more snappy than VS Code, but the latter has more reliable debugging.
-
-Node.js (Next.js?) apps [leak memory](https://www.youtube.com/watch?v=gNDBwxeBrF4&t=176s).
+Go is about a single module system, build system, runtime, paradigm, compiles to a binary which can pack assets and even be 32 bits. Go is also usable on vim which is more snappy than VS Code, but the latter has more reliable visual debugger.
