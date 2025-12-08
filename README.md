@@ -114,23 +114,30 @@ The major problem with Js/Ts is the fatigue. It is real, and it is galactic. At 
 
 nvm, fnm, nvs, volta, asdf - Node.js version managers
 
-npm / yarn / pnpm — package managers
+npm, yarn, bower, pnpm — Js/Ts package managers
+
+browserify, requirejs, systemjs, jspm, ncc - module loaders/managers
 
 tsx, ts-node - Ts execution engines and REPLs for Node.js
 
-esbuild, tsup, rollup, parcel, webpack, turbopack, rspack, vite, vite ssr - bundlers
+esbuild, tsup, rollup, parcel, webpack, turbopack, rspack, 
+yeoman, dynohot, cra, vite, vite ssr - project generators, bundlers, hot module reloaders
+
+jslint, eslint, prettier, REST Client - VS Code extensions
 
 tsc, swc, tsgo — Ts to Js compilers
 
-babel — ES6+ transpiler to older standards
+v8, spidermonkey - Js compilers to binary, also called "engines"
+
+[jispy](https://github.com/polydojo/jispy/issues/1), mocha (ES1, Brendan Eich), javascriptcore, graaljs, rhino, escargot (Samsung TVs), scriptease (ES3, James Webb Space Telescope) - Js bytecode interpreters
+
+narcissus, babel — ES6+ compilers/transpilers to older standards
 
 nx node, turborepo — monorepo management, incremental builds, caching
 
-ncc — bundle Node app into one Js file
+node, bun, deno, cloudflare workers, service workers, hermes, aws lambda, browsers - runtimes
 
-bun build, deno build - Node.js alternatives with their own build systems
-
-gulp - task runner (copy files, run scripts, not really a bundler)
+grunt, gulp - (obsolete) task runners (copy files, run scripts)
 
 pkg, yao-pkg, nexe - package Node.js project into an executable
 
