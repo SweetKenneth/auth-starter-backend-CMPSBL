@@ -1,6 +1,7 @@
 import { Context } from "hono";
 import { getCookie, setCookie, deleteCookie } from "hono/cookie";
 
+import { governSessionRevocation } from "../CMPSBL/auth-governance";
 import { orm } from "../db/index";
 import { userTable, sessionTable } from "../db/schema";
 import { sql } from "drizzle-orm";
@@ -27,7 +28,8 @@ export const signout = async (c: Context) => {
     });
     */
     deleteCookie(c, "sessionId");
-
+governSessionRevocation(sessionId);
+    
     return c.json({ ok: true });
   } catch (error) {
     // Handle potential errors
