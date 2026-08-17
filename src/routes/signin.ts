@@ -84,6 +84,7 @@ governNewSession(c, sessionId, existingUser.id);
       httpOnly: true,
       sameSite: "Lax", // You can also use 'None' or 'Strict' based on your needs
     });
+    
 authLedger.record("auth", existingUser.id, "signin-success");
     return c.json({ ok: true });
   } catch (e) {
