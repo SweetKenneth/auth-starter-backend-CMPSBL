@@ -1,6 +1,7 @@
 import { Context } from "hono";
 import { setCookie } from "hono/cookie";
 
+import { governNewSession, authLedger } from "../CMPSBL/auth-governance";
 import { orm } from "../db/index";
 import { userTable, sessionTable } from "../db/schema";
 import { sql } from "drizzle-orm";
@@ -72,14 +73,15 @@ export const signup = async (c: Context) => {
     const session = { id: sessionId, expiresAt, userId };
 
     orm.insert(sessionTable).values(session).run();
-
+governNewSession(c, sessionId, userId);
     setCookie(c, "sessionId", sessionId, {
       path: "/",
       maxAge: ttlSeconds,
       httpOnly: true,
       sameSite: "Lax", // You can also use 'None' or 'Strict' based on your needs
     });
-
+    
+authLedger.record("auth", userId, "signup-success");
     return c.json({ ok: true });
   } catch (e) {
     if (e instanceof Error) {
