@@ -1,12 +1,32 @@
 import { Context } from "hono";
 import { getCookie } from "hono/cookie";
 
+import { governExistingSession } from "../CMPSBL/auth-governance";
 import { orm } from "../db/index";
 import { userTable, sessionTable } from "../db/schema";
 import { sql } from "drizzle-orm";
 
 import { isSessionExpired } from "../utils/sessionhelpers";
+const governed = governExistingSession(c, sessionId);
 
+if (!governed.verification.valid) {
+  return c.json(
+    {
+      ok: false,
+      loggedIn: false,
+      error: "Session trust verification failed.",
+      anomalies: governed.verification.anomalies,
+    },
+    401
+  );
+}
+
+if (!governed.allowed) {
+  return c.json(
+    { ok: false, error: "Adaptive rate limit exceeded." },
+    429
+  );
+}
 export const checkauth = async (c: Context) => {
   const sessionId = getCookie(c, "sessionId");
   if (!sessionId) {
@@ -33,7 +53,11 @@ export const checkauth = async (c: Context) => {
           400
         );
       }
-      return c.json({ ok: true, loggedIn: true });
+      return c.json({
+  ok: true,
+  loggedIn: true,
+  trustScore: governed.verification.trustScore,
+});
     } catch (e) {
       if (e instanceof Error) {
         return c.json({ ok: false, error: e.message }, 400);
