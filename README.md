@@ -1,3 +1,16 @@
+<!-- SHPBL-PROVENANCE -->
+> **Status: provenance — preserved, not maintained.**
+>
+> A CMPSBL-composed starter backend. Historical output, superseded by the SHPBL pipeline.
+>
+> This repository is part of the SHPBL / CMPSBL provenance record. It is kept so
+> that current work can be traced back to where it came from. It is not the
+> product, it is not supported, and nothing here should be treated as current
+> SHPBL behaviour. Issues and pull requests are not worked.
+>
+> Current entry point: [SHPBL.com](https://shpbl.com). Canonical repository:
+> `SweetKenneth/shpbl-master`. See `PROVENANCE.md` in this repository.
+
 > "Sad thoughts come to me when I look in a bookcase full of biochemistry books. I realize that the bookcase will last much longer than the contents of the books in it."
 >
 > — _Bolesław Skarżyński (1901-1963)_
